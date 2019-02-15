@@ -1,0 +1,12 @@
+Error: -bash: /bin/chmod: Permission denied
+Solution:
+1: 
+/lib/ld-linux.so /bin/chmod +x /bin/chmod
+/lib64/ld-linux-x86-64.so.2 /bin/chmod +x /bin/chmod
+2:
+perl -e 'chmod 0755, "foobar.file"'
+3: Cp file from another server 
+4:
+mv /bin/chmod /bin/chmod.orig
+cp -a /bin/chown /bin/chmod
+dd if=/bin/chmod.orig of=/bin/chmod
