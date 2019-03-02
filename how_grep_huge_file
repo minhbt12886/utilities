@@ -1,0 +1,12 @@
+Here are a few options:
+
+1) Prefix your grep command with LC_ALL=C to use the C locale instead of UTF-8.
+
+2) Use fgrep because you're searching for a fixed string, not a regular expression.
+
+3) Remove the -i option, if you don't need it.
+
+So your command becomes:
+
+LC_ALL=C fgrep -A 5 -B 5 'db_pd.Clients' eightygigsfile.sql
+It will also be faster if you copy your file to RAM disk.
