@@ -1,0 +1,8 @@
+How to Increase Virtual Memory in Linux
+Create a swap file of the size decided upon earlier with the command 
+"sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=1024" where 1024 
+is the size of the swap file in megabytes and the full name of the swapfile is /mnt/swapfil
+Format the swap file with the command "sudo mkswap /mnt/swapfile."
+Enable the swap file with the command "sudo swapon /mnt/swapfile."
+Edit the /etc/fstab file and add the following line in /etc/fstab 
+to make the swap file persistent between reboots "/mnt/swapfile none swap sw 00."
