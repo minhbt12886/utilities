@@ -1,0 +1,27 @@
+What is P99 latency?
+It's 99th percentile. 
+It means that 99% of the requests should be faster than given latency. 
+In other words only 1% of the requests are allowed to be slower.
+It's the upper bound of latencies experienced by 99% of flows (e.g., TCP flows, HTTP requests, RPCs, ...). 
+In other words, 99% of the flows are experiencing less than the p99 (aka 99th-percentile) latency. 
+Why is it used?
+In most applications, we want to minimize tail latencies, which correspond to the worst user experience. 
+Now, given that we have roughly 1% noise in our measurements 
+(like network congestions, outages, service degradations), 
+the p99 latency is a good representative of practically the worst case. 
+And, almost always, our goal is to reduce the p99 latency.
+Let me give you an example. 
+Let say you have a web app that its data is stored in a persistent DB and is also partly cached in memory.
+If you answer 90% of the requests from the cache, but 10% from the persistent DB, the p99 latency is determined by the DB's latency.
+At this stage, you need to work on your DB design and caching strategy to improve p99, 
+otherwise you'll get lots of complaints from your customers (end-users or other developers in your team).
+
+Ex:
+Request latency:
+    min: 0.1
+    max: 7.2
+    median: 0.2
+    p95: 0.5
+    p99: 1.3
+    
+p95 is the 95th percentile latency, i.e. for 95 percent of virtual users in your report, the latency was 0.5ms or lower.
