@@ -1,0 +1,13 @@
+Requirements: Get the number of messages in a log or json file for a specific day.The day field of a line in log is in nanoseconds format.
+Format log: 
+For example:
+{"cookies":[["idCookie","0%3A18020%3A1809nv9v3qrfp0hv"],["uid","LTqS-8q1diIrpGiTWNnXQcHMg6prWSZaUfjNR3M5dRgP"],
+["vid","oCuQ6QT31r6Qb1oVbr1Tu3Q1Vr3CTbG6ygTTWo_x9VGhogNsEbpGhXzBjkYWW"],["_ga","GA1.2.137326119.1556968126"],
+["_fbp","fb.1.1556968128476.249729467"],["_ym_uid","1556968531156722279"],["_ym_d","1556968531"],
+["ntp_version","25977904%2C34f004e"],["_gid","GA1.2.1916849742.1559268845"],
+["rb467sendo2","1559272677_0_0_-1"],["rb467sendo5","1559279878_0"],["_ym_isad","2"],["serp_version","25963628/0fde0f2"],
+["ls","1559405809"],["cc_t","AhY_cQVSQQ9BCloFZlcJG1F4XldSeWtrUEFsen8xIAEsQVgWCVtUfF5_d34CemhNAhsaeVRof3lzXUlfR0pxCDBIFic4aAMMVQ1AA1MuTEhEGHVfV1dnY3wPFWVybWECUB0BAUVdIyJ9RmJzDQQPdVMiR1xpOhx_eHtbJStEPHkAJgcTeXEDFz8BO3A4BBEpFCoAPC09PjsGMigGemE."],
+["_gat","1"],["_ym_visorc_50377519","b"],["GED_PLAYLIST_ACTIVITY","W3sidSI6IkNWUzkiLCJ0c2wiOjE1NTk0MTA1MTQsIm52IjowLCJ1cHQiOjE1NTk0MTA0OTYsImx0IjoxNTU5NDEwNTA0fV0."]],"headers":{"Accept":["image/webp,image/apng,image/*,*/*;q=0.8"],"Accept-Encoding":["gzip, deflate, br"],"Accept-Language":["vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5"],"Connection":["close"],"User-Agent":["Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) coc_coc_browser/79.0.108 Chrome/73.0.3683.108 Safari/537.36"],"X-Itim-Host":["coccoc.com"],"X-Itim-Remote-Address":["14.162.133.147"],"X-Itim-Scheme":["https"]},"method":"GET","remote_addr":"10.10.0.21:26940","request_uri":"/log?webhpAction=vBannerCompleteView\u0026bannerId=20888277\u0026campaignId=955031\u0026matchId=264952191\u0026reqId=4j8o8yxQ\u0026thisIsVast=1","timestamp_ns":1559410514326407893}
+Solution:
+
+zcat /root/requests.json-20190521.gz |awk 'match($0, /timestamp_ns\":([^,]+)/) {d=substr( $0, RSTART+14, RLENGTH-24 ); cmd="date  -d \"@"d"\" +%Y%m%d";cmd|getline da;close(cmd);if (da == "20190521"){count+=1}} END {print count}
